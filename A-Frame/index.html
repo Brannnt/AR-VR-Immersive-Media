@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Laser input UI</title>
+    <meta name="description" content="Laser input UI • A-Frame">
+    <script src="../../../dist/aframe-master.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.x/dist/aframe-environment-component.min.js"></script>
+    <script src="../../js/info-message.js"></script>
+    <script src="highlight.js"></script>
+    <script src="info-panel.js"></script>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const winningButton = document.querySelector('#ponyoButton');
+        const message = document.createElement('a-text');
+        message.setAttribute('value', 'You Win!');
+        message.setAttribute('color', 'green');
+        message.setAttribute('position', '0 1 -2');
+        message.setAttribute('visible', 'false');
+        
+        document.querySelector('a-scene').appendChild(message);
+
+        // Define the event handler for the winning button
+        winningButton.addEventListener('click', function () {
+          message.setAttribute('visible', 'true');
+        });
+
+        // Define event handlers for the other buttons
+        document.querySelectorAll('.menu-button').forEach(button => {
+          if (button !== winningButton) {
+            button.addEventListener('click', function () {
+              message.setAttribute('value', 'Try Again!');
+              message.setAttribute('color', 'red');
+              message.setAttribute('visible', 'true');
+            });
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene
+      background="color: #212"
+      environment
+      cursor="rayOrigin: mouse; fuse: false"
+      raycaster="objects: .raycastable"
+      info-message="htmlSrc: #messageText"
+    >
+      <a-assets>
+        <a-asset-item id="messageText" src="message.html"></a-asset-item>
+        <img id="kazetachinu" src="https://cdn.aframe.io/examples/ui/kazetachinu.jpg" crossorigin="anonymous" />
+        <img id="kazetachinuPoster" src="https://cdn.aframe.io/examples/ui/kazetachinuPoster.jpg" crossorigin="anonymous" />
+        <img id="ponyo" src="https://cdn.aframe.io/examples/ui/ponyo.jpg" crossorigin="anonymous" />
+        <img id="ponyoPoster" src="https://cdn.aframe.io/examples/ui/ponyoPoster.jpg" crossorigin="anonymous" />
+        <img id="karigurashi" src="https://cdn.aframe.io/examples/ui/karigurashi.jpg" crossorigin="anonymous" />
+        <img id="karigurashiPoster" src="https://cdn.aframe.io/examples/ui/karigurashiPoster.jpg" crossorigin="anonymous" />
+        <a-mixin
+          id="frame"
+          geometry="primitive: plane; width: 0.5783552; height: 0.8192"
+          material="color: white; shader: flat"
+          animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter"
+          animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
+        ></a-mixin>
+        <a-mixin id="poster" geometry="primitive: plane; width: 0.544768; height: 0.786432" material="color: white; shader: flat" material="shader: flat" position="0 0 0.005"></a-mixin>
+        <a-mixin id="movieImage" geometry="primitive: plane; width: 1.5; height: 0.81" material="src: #ponyo; shader: flat; transparent: true" position="0 0.495 0.002"></a-mixin>
+      </a-assets>
+
+      <!-- Entities in the scene -->
+      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-sky color="#ECECEC"></a-sky>
+
+      <!-- Interactive menu -->
+      <a-entity id="ui" position="0 1.6 -2.5">
+        <a-entity id="menu" highlight>
+          <a-entity id="karigurashiButton" position="-0.8 0 0" mixin="frame" class="raycastable menu-button">
+            <a-entity material="src: #karigurashiPoster;" mixin="poster"></a-entity>
+          </a-entity>
+          <a-entity id="kazetachinuButton" position="0 0 0" mixin="frame" class="raycastable menu-button">
+            <a-entity material="src: #kazetachinuPoster" mixin="poster"></a-entity>
+          </a-entity>
+          <a-entity id="ponyoButton" position="0.8 0 0" mixin="frame" class="raycastable menu-button">
+            <a-entity material="src: #ponyoPoster" mixin="poster"></a-entity>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
