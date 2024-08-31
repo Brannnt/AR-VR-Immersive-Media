@@ -6,11 +6,9 @@
     </head>
     <body style="margin : 0px; overflow: hidden;">
         <a-scene embedded arjs>
-            <a-marker preset="hiro">
-                <!-- Existing box primitive -->
+            <a-marker preset="pattern"
+            url="https://github.com/Brannnt/AR-VR-Immersive-Media/blob/main/ARjs/pattern-qr-code.patt">
                 <a-box position="0 1 0" material="opacity:0.5; color=#f70087;"></a-box>
-                
-                <!-- New sphere primitive -->
                 <a-sphere position="1 1 0" radius="0.5" material="color: #4CAF50;"></a-sphere>
                 <a-torus position="0 1.5 -3" radius="1" radius-tubular="0.2" color="#FFC0CB"></a-torus>
             </a-marker>
